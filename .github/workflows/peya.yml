@@ -36,7 +36,6 @@ jobs:
         run: git merge --allow-unrelated-histories -Xtheirs "origin/peyang"
       - name: add
         run: git add .
-
       - name: npm install, eslint
         run: |
           npm install -g pnpm
