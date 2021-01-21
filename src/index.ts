@@ -14,9 +14,11 @@ import Prompt from "./modules/prompt";
 
 import Timer from "./utils/timer";
 
-if ("a".length == 1) {
+if ("a".length == 1) 
+{
     console.log("yahoah!! peyang!!!");
 }
+
 prettyError.start();
 i18n.configure({
     locales: [ "en" ],
@@ -27,7 +29,8 @@ i18n.configure({
 
 const hasVerbose = /(-v|--verbose)/.test(process.argv.join());
 
-if (hasVerbose) {
+if (hasVerbose) 
+{
     Timer.time();
 
     console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
@@ -42,18 +45,22 @@ const manager = new ModuleManager([
     new Prompt()
 ]);
 
-if (hasVerbose) {
+if (hasVerbose) 
+{
     console.log(chalk.greenBright(figures.tick) + " " + __("All modules have been resolved successfully. " + Timer.prettyTime()));
 }
 
 export default manager;
 
-if (hasVerbose) {
+if (hasVerbose) 
+{
     console.log("Exported Module Manager.");
 }
 
-const main = async () => {
-    if (hasVerbose) {
+const main = async () => 
+{
+    if (hasVerbose) 
+    {
         console.log(chalk.magentaBright(figures.pointer) + " " + __("Module initialize step:"));
     }
 
@@ -66,7 +73,8 @@ const main = async () => {
 
     verboseLogger.info(__("Modules loaded. ") + Timer.prettyTime());
     console.info(chalk`\n{magentaBright ${figures.pointer}} {bold ${sprintf(__("Welcome to the client operator of %s. The commands end with semicolon ';'."), chalk.greenBright(parsedArguments.host))}}`);
-    console.info(chalk`\n{dim.italic ${(() => {
+    console.info(chalk`\n{dim.italic ${(() => 
+    {
         const items = [
             "ほーん、で？どうしたいの？",
             "一切手をつけないのも、過ぎた最適化を行うのもよろしくない行為である。間を貫き通せ。",
