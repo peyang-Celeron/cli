@@ -22,14 +22,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package.json')) }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
       - name: npm install, eslint
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
-        run: npm install
+        run: yarn
       - name: Stash
         run: git stash -ua
       - name: Change Branch
@@ -80,14 +80,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package.json')) }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
       - name: npm install, eslint
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
-        run: npm install
+        run: yarn
       - name: fix
         run: "npm run fix"
       - name: Stash
@@ -96,7 +96,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: peyang
-
       - name: dbg
         run: "ls node_modules"
       - name: Configure
