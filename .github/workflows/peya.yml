@@ -27,10 +27,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: npm install, eslint
-        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
-        run: |
-          npm install -g eslint
       - name: Change Branch
         uses: actions/checkout@v2
         with:
@@ -46,8 +42,13 @@ jobs:
         run: git merge --allow-unrelated-histories -Xtheirs "origin/peyang"
       - name: add
         run: git add .
+
+      - name: npm install, eslint
+        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        run: |
+          npm install -g eslint
       - name: fix
-        run: "eslint --fix"
+        run: "npx eslint --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
