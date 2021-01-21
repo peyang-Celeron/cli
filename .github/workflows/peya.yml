@@ -9,10 +9,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Fix code
-        uses: getsentry/action-eslint-fix@v1
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 14
+      - name: yarn install, eslint
+        run: |
+          yarn
+          yarn eslint
+      - name: fix
+        run: eslint --fix .
       - name: commit
         uses: EndBug/add-and-commit@v4
         with:
