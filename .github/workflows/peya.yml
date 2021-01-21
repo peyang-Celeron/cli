@@ -9,24 +9,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: peyang
-      - name: Configure
-        run: |
-            git config user.email "42040068+peyang-Celeron@users.noreply.github.com"
-            git config --global user.name "peyang-Celeron@BOT"
-      - name: Dev
-        run: git branch --show-current
-      - name: fetch
-        run: git fetch origin
-      - name: Merge
-        run: git merge --allow-unrelated-histories  origin/develop
       - name: Fix code
         uses: getsentry/action-eslint-fix@v1
+      
       - name: commit
         uses: EndBug/add-and-commit@v4
         with:
           author_name: Eslint BOT
           message: Code Fix
           force: true
-          ref: peyang
+          branch: peyang
