@@ -13,7 +13,7 @@ import Command from "./modules/command";
 import Prompt from "./modules/prompt";
 
 import Timer from "./utils/timer";
-console.log("Ah, moo melt cha kougch a dea yoah. doo shit ekk uoo relt now?");
+console.log("Ah, moo melt cha kougch a dea yoah. doo shit ekk uoo relt now? hah?");
 prettyError.start();
 i18n.configure({
     locales: [ "en" ],
