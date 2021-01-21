@@ -6,23 +6,31 @@ on:
 
 jobs:
   peyang2develop:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+        node: [latest]
     if: "github.ref == 'refs/heads/peyang'"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: fetch
         run: git fetch
+      - name: Cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: yarn install, eslint
+      - name: npm install, eslint
+        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: |
-          yarn
-          yarn eslint
-      - name: Stash
-        run: git stash -ua
+          npm install -g eslint
       - name: Change Branch
         uses: actions/checkout@v2
         with:
@@ -35,11 +43,11 @@ jobs:
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
+        run: git merge --allow-unrelated-histories -Xtheirs "origin/peyang"
       - name: add
         run: git add .
       - name: fix
-        run: "./node_modules/.bin/eslint --fix"
+        run: "eslint --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -53,29 +61,41 @@ jobs:
       - name: push
         run: git push
   develop2peyang:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+        node: [latest]
     if: "github.ref == 'refs/heads/develop'"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: fetch
         run: git fetch
+      - name: Cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: yarn install, eslint
+      - name: npm install, eslint
+        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: |
-          yarn
-          yarn eslint
+          npm install -g eslint
       - name: fix
-        run: "./node_modules/.bin/eslint --fix"
+        run: "eslint --fix"
       - name: Stash
         run: git stash -ua
       - name: Change Branch
         uses: actions/checkout@v2
         with:
           ref: peyang
+      - name: dbg
+        run: "ls"
       - name: Configure
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
