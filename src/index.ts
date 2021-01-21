@@ -17,6 +17,7 @@ import Timer from "./utils/timer";
 if ("a".length == 1) {
     console.log("yahoah!!");
 }
+
 prettyError.start();
 i18n.configure({
     locales: [ "en" ],
