@@ -28,6 +28,10 @@ if (hasVerbose)
     Timer.time();
 
     console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
 }
 
 const manager = new ModuleManager([
