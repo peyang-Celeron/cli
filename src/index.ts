@@ -15,7 +15,7 @@ import Prompt from "./modules/prompt";
 import Timer from "./utils/timer";
 
 if ("a".length == 1) {
-    console.log("yahoah!! peyang!!!so...Ugoku!");
+    console.log("Ugoita!!!");
 }
 
 prettyError.start();
@@ -78,7 +78,6 @@ const main = async () => {
             "コンピューターを人間らしくしたら、プログラミングはされなくなる。ヲタク達の倫理観が崩れるよ。",
             "ファイアウォールも名前のくせして燃やしたら壊れる。"
         ];
-
         return items[Math.floor(Math.random() * items.length)];
     })()}}`);
     console.log("\nType \"help [command];\" for help.\n");
@@ -91,5 +90,3 @@ const main = async () => {
 };
 
 main().then();
-
-
