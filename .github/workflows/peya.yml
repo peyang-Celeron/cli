@@ -33,6 +33,9 @@ jobs:
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
             git config --global user.name "peyang-Celeron@BOT"
+            echo '[merge "ours"]' >> .git/config
+            echo '  name = "Keep ours merge"' >> .git/config
+            echo '  driver = true' >> .git/config
       - name: Apply
         run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
       - name: add
@@ -69,6 +72,9 @@ jobs:
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
             git config --global user.name "peyang-Celeron@BOT"
+            echo '[merge "ours"]' >> .git/config
+            echo '  name = "Keep ours merge"' >> .git/config
+            echo '  driver = true' >> .git/config
       - name: Apply
         run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
       - name: add
