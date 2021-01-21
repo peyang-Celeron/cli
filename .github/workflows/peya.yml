@@ -96,12 +96,8 @@ jobs:
       - name: stash
         run: "git stash -ua"
       - name: commit
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: "peyang-Celeron@bot"
-          author_email: "42040068+peyang-Celeron@users.noreply.github.com"
-          message: "Fix codestyle"
-          signoff: true
-          branch: peyang
+        run: "git commit -m 'Style fixed'"
+      - name: push
+        run: "git push"
       - name: LogStatus
         run: git status
