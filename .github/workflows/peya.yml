@@ -73,9 +73,8 @@ jobs:
           node-version: 14
       - name: npm install, eslint
         run: |
-          npm install -g @typescript-eslint/eslint-plugin@latest
-          npm install -g @typescript-eslint/parser@latest
-          npm install -g @typescript-eslint/eslint@latest
+          npm install -g pnpm
+          pnpm i
       - name: fix
         run: "npm run fix"
       - name: Stash
