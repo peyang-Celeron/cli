@@ -31,6 +31,8 @@ jobs:
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: |
           npm install -g eslint
+      - name: fix
+        run: "eslint --fix"
       - name: Stash
         run: git stash -ua
       - name: Change Branch
@@ -50,8 +52,6 @@ jobs:
         run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
       - name: add
         run: git add .
-      - name: fix
-        run: "eslint --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
