@@ -71,18 +71,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: npm install, eslint
-        run: |
-          npm install -g pnpm
-          pnpm i
-      - name: fix
-        run: "npm run fix"
-      - name: Stash
-        run: git stash -ua
       - name: Change Branch
         uses: actions/checkout@v2
         with:
           ref: peyang
+      - name: npm install, eslint
+        run: |
+          npm install -g pnpm
+          pnpm i
       - name: dbg
         run: "ls"
       - name: Configure
@@ -93,9 +89,19 @@ jobs:
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
+        run: git merge --allow-unrelated-histories -Xtheirs "origin/develop"
       - name: add
         run: git add .
+      - name: fix
+        run: "npm run fix"
+      - name: commit
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: "peyang-Celeron@bot"
+          author_email: "42040068+peyang-Celeron@users.noreply.github.com"
+          branch: develop
+          message: "Fix codestyle"
+          signoff: true
       - name: LogStatus
         run: git status
       - name: push
