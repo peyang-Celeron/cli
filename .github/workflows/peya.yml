@@ -9,8 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: dbg
-        run: git branch
+      - name: fetch
+        run: git fetch
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
