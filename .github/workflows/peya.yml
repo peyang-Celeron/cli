@@ -18,7 +18,7 @@ jobs:
           yarn
           yarn eslint
       - name: fix
-        run: eslint --fix .
+        run: npm run fix
       - name: commit
         uses: EndBug/add-and-commit@v4
         with:
