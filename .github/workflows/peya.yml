@@ -40,6 +40,7 @@ jobs:
       - name: npm install, eslint
         run: |
           npm install -g eslint
+          npm install -g @typescript-eslint/eslint-plugin@latest
       - name: fix
         run: "npm run fix"
       - name: commit
@@ -73,6 +74,7 @@ jobs:
       - name: npm install, eslint
         run: |
           npm install -g eslint
+          npm install -g @typescript-eslint/eslint-plugin@latest
       - name: fix
         run: "npm run fix"
       - name: Stash
