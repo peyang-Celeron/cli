@@ -41,7 +41,7 @@ jobs:
         run: |
           npm install -g eslint
       - name: fix
-        run: "npm fix"
+        run: "npm run fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -74,7 +74,7 @@ jobs:
         run: |
           npm install -g eslint
       - name: fix
-        run: "npm fix"
+        run: "npm run fix"
       - name: Stash
         run: git stash -ua
       - name: Change Branch
