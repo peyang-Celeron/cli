@@ -71,14 +71,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: npm install, eslint
-        run: |
-          npm install -g pnpm
-          pnpm i
-      - name: fix
-        run: "npm run fix"
-      - name: Stash
-        run: git stash -ua
       - name: Change Branch
         uses: actions/checkout@v2
         with:
@@ -93,9 +85,15 @@ jobs:
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
+        run: git merge --allow-unrelated-histories -Xtheirs "origin/develop"
       - name: add
         run: git add .
+      - name: npm install, eslint
+        run: |
+          npm install -g pnpm
+          pnpm i
+      - name: fix
+        run: "npm run fix"
       - name: LogStatus
         run: git status
       - name: push
