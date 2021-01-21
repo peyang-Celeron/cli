@@ -75,10 +75,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: peyang
-      - name: npm install, eslint
-        run: |
-          npm install -g pnpm
-          pnpm i
       - name: dbg
         run: "ls"
       - name: Configure
@@ -92,6 +88,10 @@ jobs:
         run: git merge --allow-unrelated-histories -Xtheirs "origin/develop"
       - name: add
         run: git add .
+      - name: npm install, eslint
+        run: |
+          npm install -g pnpm
+          pnpm i
       - name: fix
         run: "npm run fix"
       - name: commit
