@@ -39,9 +39,7 @@ jobs:
 
       - name: npm install, eslint
         run: |
-          npm install -g @typescript-eslint/parser@latest
-          npm install -g @typescript-eslint/eslint@latest
-          npm install -g @typescript-eslint/eslint-plugin@latest
+          npm install -g typescript-eslint/parser eslint eslint-plugin
       - name: fix
         run: "npm run fix"
       - name: commit
