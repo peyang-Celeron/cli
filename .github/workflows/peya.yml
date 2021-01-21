@@ -41,7 +41,7 @@ jobs:
         run: |
           npm install -g eslint
       - name: fix
-        run: "npx eslint --fix"
+        run: "node node_modules/.bin/eslint --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
