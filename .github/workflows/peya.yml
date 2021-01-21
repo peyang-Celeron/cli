@@ -31,16 +31,10 @@ jobs:
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: |
           npm install -g eslint
-      - name: fix
-        run: "eslint --fix"
-      - name: Stash
-        run: git stash -ua
       - name: Change Branch
         uses: actions/checkout@v2
         with:
           ref: develop
-      - name: dbg
-        run: "ls"
       - name: Configure
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
@@ -49,9 +43,11 @@ jobs:
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
+        run: git merge --allow-unrelated-histories -Xtheirs "peyang"
       - name: add
         run: git add .
+      - name: fix
+        run: "eslint --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
