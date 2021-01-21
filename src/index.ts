@@ -17,6 +17,7 @@ import Timer from "./utils/timer";
 if ("a".length == 1) 
 {
     console.log("Ugoita!!!");
+    console.log("Hello!!! This code has commit in peyang branch!!!");
 }
 
 prettyError.start();
