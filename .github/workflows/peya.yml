@@ -100,8 +100,8 @@ jobs:
         with:
           author_name: "peyang-Celeron@bot"
           author_email: "42040068+peyang-Celeron@users.noreply.github.com"
-          branch: peyang
           message: "Fix codestyle"
           signoff: true
+          branch: peyang
       - name: LogStatus
         run: git status
