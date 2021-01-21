@@ -13,7 +13,6 @@ import Command from "./modules/command";
 import Prompt from "./modules/prompt";
 
 import Timer from "./utils/timer";
-console.log("Ah, moo melt cha kougch a dea yoah. doo shit ekk uoo relt now? hah? nani itter auno?");
 prettyError.start();
 i18n.configure({
     locales: [ "en" ],
@@ -28,6 +27,10 @@ if (hasVerbose)
 {
     Timer.time();
 
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
     console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
 }
 
