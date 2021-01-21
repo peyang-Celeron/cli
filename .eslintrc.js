@@ -52,7 +52,7 @@ module.exports = {
             requireForBlockBody: true
         }],
         "block-spacing": "error",
-        "brace-style": [ "error", "1tbs", {
+        "brace-style": [ "error", "allman", {
             allowSingleLine: true
         }],
         "comma-dangle": [ "error", "never" ],
