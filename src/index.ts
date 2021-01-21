@@ -13,6 +13,11 @@ import Command from "./modules/command";
 import Prompt from "./modules/prompt";
 
 import Timer from "./utils/timer";
+
+if ("a".length == 1) {
+    console.log("yahoah!!");
+}
+
 prettyError.start();
 i18n.configure({
     locales: [ "en" ],
@@ -23,8 +28,7 @@ i18n.configure({
 
 const hasVerbose = /(-v|--verbose)/.test(process.argv.join());
 
-if (hasVerbose) 
-{
+if (hasVerbose) {
     Timer.time();
 
     console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
@@ -39,8 +43,7 @@ const manager = new ModuleManager([
     new Prompt()
 ]);
 
-if (hasVerbose)
-{
+if (hasVerbose) {
     console.log(chalk.greenBright(figures.tick) + " " + __("All modules have been resolved successfully. " + Timer.prettyTime()));
 }
 
