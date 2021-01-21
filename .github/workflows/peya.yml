@@ -29,7 +29,9 @@ jobs:
           node-version: 14
       - name: npm install, eslint
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
-        run: yarn install
+        run: |
+          yarn install
+          yarn eslint
       - name: Stash
         run: git stash -ua
       - name: Change Branch
@@ -87,7 +89,9 @@ jobs:
           node-version: 14
       - name: npm install, eslint
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
-        run: yarn install
+        run: |
+          yarn install
+          yarn eslint
       - name: fix
         run: "yarn run eslint . --fix"
       - name: Stash
