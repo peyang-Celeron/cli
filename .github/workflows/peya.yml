@@ -16,7 +16,7 @@ jobs:
       - name: fetch
         run: git fetch origin
       - name: Merge
-        run: git merge origin/develop
+        run: git merge --allow-unrelated-histories  origin/develop
       - name: Fix code
         uses: getsentry/action-eslint-fix@v1
       - name: commit
