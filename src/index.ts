@@ -15,7 +15,7 @@ import Prompt from "./modules/prompt";
 import Timer from "./utils/timer";
 
 if ("a".length == 1) {
-    console.log("yahoah!! peyang!!!");
+    console.log("yahoah!! peyang!!!so...Ugoku!");
 }
 
 prettyError.start();
