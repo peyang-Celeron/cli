@@ -13,8 +13,10 @@ jobs:
           ref: peyang
       - name: Dev
         run: git branch --show-current
+      - name: fetch
+        run: git fetch origin
       - name: Merge
-        run: git merge origin develop
+        run: git merge develop
       - name: Fix code
         uses: getsentry/action-eslint-fix@v1
       - name: commit
