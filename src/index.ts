@@ -13,6 +13,10 @@ import Command from "./modules/command";
 import Prompt from "./modules/prompt";
 
 import Timer from "./utils/timer";
+
+if (true) {
+    console.log("yahoah!!");
+}
 prettyError.start();
 i18n.configure({
     locales: [ "en" ],
