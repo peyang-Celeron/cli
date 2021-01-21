@@ -13,7 +13,7 @@ import Command from "./modules/command";
 import Prompt from "./modules/prompt";
 
 import Timer from "./utils/timer";
-console.log("hello, peyayan!1451rrrrrrrrrrrrrrrrrrrrrrrrrr4");
+console.log("hello, peyayan!Yes<! iiyokoiyo!ikuiku!");
 prettyError.start();
 i18n.configure({
     locales: [ "en" ],
