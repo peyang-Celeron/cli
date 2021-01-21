@@ -37,10 +37,5 @@ jobs:
         run: git add .
       - name: LogStatus
         run: git status
-      - name: commit
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: Eslint BOT
-          message: Code Fix
-          branch: peyang
-          author_email: 42040068+peyang-Celeron@users.noreply.github.com
+      - name: push
+        run: git push
