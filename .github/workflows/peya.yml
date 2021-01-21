@@ -39,3 +39,5 @@ jobs:
           author_name: Eslint BOT
           message: Code Fix
           force: true
+          branch: peyang
+          author_email: 42040068+peyang-Celeron@users.noreply.github.com
