@@ -28,7 +28,7 @@ jobs:
         with:
           ref: peyang
       - name: Apply
-        run: git stash apply
+        run: git merge "stash@{0}" 
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
