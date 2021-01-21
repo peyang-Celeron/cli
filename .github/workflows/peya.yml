@@ -43,7 +43,7 @@ jobs:
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xtheirs "peyang"
+        run: git merge --allow-unrelated-histories -Xtheirs "origin/peyang"
       - name: add
         run: git add .
       - name: fix
