@@ -30,8 +30,7 @@ jobs:
       - name: npm install, eslint
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: |
-          yarn install
-          yarn eslint
+          npm install -g eslint
       - name: Stash
         run: git stash -ua
       - name: Change Branch
@@ -52,7 +51,7 @@ jobs:
       - name: add
         run: git add .
       - name: fix
-        run: "/home/runner/work/cli/cli/node_modules/.bin/eslint --fix"
+        run: "eslint --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -90,10 +89,9 @@ jobs:
       - name: npm install, eslint
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: |
-          yarn install
-          yarn eslint
+          npm install -g eslint
       - name: fix
-        run: "/home/runner/work/cli/cli/node_modules/.bin/eslint --fix"
+        run: "eslint --fix"
       - name: Stash
         run: git stash -ua
       - name: Change Branch
