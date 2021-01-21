@@ -39,9 +39,9 @@ jobs:
 
       - name: npm install, eslint
         run: |
-          npm install -g eslint
+          npm i
       - name: fix
-        run: "npx eslint --fix"
+        run: "npm run fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -72,9 +72,11 @@ jobs:
           node-version: 14
       - name: npm install, eslint
         run: |
-          npm install -g eslint
+          npm install -g @typescript-eslint/eslint-plugin@latest
+          npm install -g @typescript-eslint/parser@latest
+          npm install -g @typescript-eslint/eslint@latest
       - name: fix
-        run: "eslint --fix"
+        run: "npm run fix"
       - name: Stash
         run: git stash -ua
       - name: Change Branch
