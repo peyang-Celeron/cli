@@ -39,7 +39,8 @@ jobs:
 
       - name: npm install, eslint
         run: |
-          npm i
+          npm install -g pnpm
+          pnpm i
       - name: fix
         run: "npm run fix"
       - name: commit
