@@ -52,7 +52,7 @@ jobs:
       - name: add
         run: git add .
       - name: fix
-        run: "/home/runner/work/cli/cli/node_modules/.bin/eslint eslint --fix"
+        run: "/home/runner/work/cli/cli/node_modules/.bin/eslint --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -93,7 +93,7 @@ jobs:
           yarn install
           yarn eslint
       - name: fix
-        run: "/home/runner/work/cli/cli/node_modules/.bin/eslint eslint --fix"
+        run: "/home/runner/work/cli/cli/node_modules/.bin/eslint --fix"
       - name: Stash
         run: git stash -ua
       - name: Change Branch
