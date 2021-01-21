@@ -50,7 +50,7 @@ jobs:
       - name: add
         run: git add .
       - name: fix
-        run: "npm run lint:js --fix"
+        run: "yarn run eslint . --fix"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -89,7 +89,7 @@ jobs:
         if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: yarn install
       - name: fix
-        run: "npm run fix"
+        run: "yarn run eslint . --fix"
       - name: Stash
         run: git stash -ua
       - name: Change Branch
