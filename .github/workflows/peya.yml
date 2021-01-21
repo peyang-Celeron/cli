@@ -20,7 +20,7 @@ jobs:
       - name: fix
         run: npm run fix
       - name: commit
-        uses: EndBug/add-and-commit@v4
+        uses: EndBug/add-and-commit@v7
         with:
           author_name: Eslint BOT
           message: Code Fix
