@@ -93,6 +93,8 @@ jobs:
           pnpm i
       - name: fix
         run: "npm run fix"
+      - name: stash
+        run: "git stash -ua"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -103,5 +105,3 @@ jobs:
           signoff: true
       - name: LogStatus
         run: git status
-      - name: push
-        run: git push
