@@ -9,7 +9,7 @@ import Module from "./base";
 
 export default class Prompt extends Module 
 {
-    constructor() 
+    constructor(private parsedArguments: any = {}) 
     {
         super("Prompt", "Show beauty prompts.");
     }
@@ -17,6 +17,7 @@ export default class Prompt extends Module
     init(): Promise<void> 
     {
         this.enabled = true;
+        this.parsedArguments = manager.use("Arguments Manager");
 
         return Promise.resolve();
     }
@@ -25,9 +26,8 @@ export default class Prompt extends Module
     {
         return (code: number) => 
         {
-            const parsedArguments = manager.use("Arguments Manager");
 
-            process.stdout.write(chalk`{bold {blueBright.underline ${parsedArguments.host}} as {cyanBright ban-server}${code !== 0 ? chalk.bold(" stopped with " + chalk.redBright(code)) : ""}}\n {magentaBright ${figures.pointer}${code !== 0 ? chalk.redBright(figures.pointer) : chalk.blueBright(figures.pointer)}${figures.pointer}} `);
+            process.stdout.write(chalk`{bold {blueBright.underline ${this.parsedArguments.host}} as {cyanBright ban-server}${code !== 0 ? chalk.bold(" stopped with " + chalk.redBright(code)) : ""}}\n {magentaBright ${figures.pointer}${code !== 0 ? chalk.redBright(figures.pointer) : chalk.blueBright(figures.pointer)}${figures.pointer}} `);
 
             let command = "";
 
@@ -40,9 +40,9 @@ export default class Prompt extends Module
             }
 
             do 
-            
+            {
                 command = command.slice(0, -1);
-            while (command.endsWith(";"));
+            } while (command.endsWith(";"));
 
             let stopCode;
 
@@ -58,14 +58,14 @@ export default class Prompt extends Module
             }
 
             if (stopCode >= 9684) 
-            
-                manager.exit(stopCode - 9684);
-            
+            {
+                return stopCode - 9684;
+            }
 
             if (stopCode == -1) 
-            
+            {
                 console.log(chalk`{bgRedBright.black  ERROR } ` + chalk.redBright(__("Command not found.")));
-            
+            }
 
             return this.use()(stopCode);
         };

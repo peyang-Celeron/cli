@@ -22,6 +22,15 @@ i18n.configure({
     //defaultLocale: Intl.DateTimeFormat().resolvedOptions().locale === "ja-JP" ? "ja" : "en"
 });
 
+const hasVerbose = /(-v|--verbose)/.test(process.argv.join());
+
+if (hasVerbose) 
+{
+    Timer.time();
+
+    console.log(chalk.magentaBright(figures.pointer) + " " + __("Module resolution step:"));
+}
+
 const manager = new ModuleManager([
     new Arguments(),
     new Directory(),
@@ -31,10 +40,25 @@ const manager = new ModuleManager([
     new Prompt()
 ]);
 
+if (hasVerbose) 
+{
+    console.log(chalk.greenBright(figures.tick) + " " + __("All modules have been resolved successfully. " + Timer.prettyTime()));
+}
+
 export default manager;
+
+if (hasVerbose) 
+{
+    console.log("Exported Module Manager.");
+}
 
 const main = async () => 
 {
+    if (hasVerbose) 
+    {
+        console.log(chalk.magentaBright(figures.pointer) + " " + __("Module initialize step:"));
+    }
+
     await manager.initAllModules();
 
     Timer.time();
@@ -60,14 +84,14 @@ const main = async () =>
         return items[Math.floor(Math.random() * items.length)];
     })()}}`);
     console.log("\nType \"help [command];\" for help.\n");
-    manager.use("Prompt")(0);
+
+    const exitCode = manager.use("Prompt")(0);
+
+    console.log(chalk`{greenBright Good bye.}`);
+    await manager.closeAllModules();
+    process.exit(exitCode);
 };
 
-main().then(() => 
-{
-    console.log(chalk`{greenBright Good bye.}`);
-
-    manager.closeAllModules();
-});
+main().then();
 
 

@@ -30,10 +30,7 @@ export default class Command extends Module
         return {
             commands: (command: string): number => (command.split(" ")[0] in this.execute[0]
                 ? this.execute[0][command.split(" ")[0]](command.split(" ").slice(1).join())
-                : (() => 
-                {
-                    throw new CommandNotFoundError(); 
-                })()),
+                : (() => { throw new CommandNotFoundError(); })()),
             list: this.execute
         };
     }

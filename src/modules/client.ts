@@ -1,3 +1,5 @@
+import fs from "fs";
+import zlib from "zlib";
 import axios, { AxiosInstance } from "axios";
 import chalk from "chalk";
 import figures from "figures";
@@ -11,7 +13,10 @@ import Timer from "../utils/timer";
 
 import manager from "..";
 
+import ModuleNotEnabledError from "../errors/module-not-enabled";
+
 import Module from "./base";
+
 
 /**
  * The core module to using this application.
@@ -23,9 +28,11 @@ export default class Client extends Module
      *
      * @param client The axios instance to use interceptors.
      *
+     * @param saveFile
+     * @param paths
      * @returns The instance of this class.
      */
-    constructor(private client?: AxiosInstance, private saveFile: {hosts: [{token?: string, name: string}?]} = { hosts: []}) 
+    constructor(private client?: AxiosInstance, private saveFile: { hosts: [{ token?: string, name: string }?]} = { hosts: []}, private paths: any = {}) 
     {
         super("Client", "Core module to using this application.");
     }
@@ -33,8 +40,9 @@ export default class Client extends Module
     async init(): Promise<void> 
     {
         const parsedArguments = manager.use("Arguments Manager");
-        const directories = manager.use("Directory Manager");
         const [ logger, verboseLogger ] = manager.use("Logger");
+
+        this.paths = manager.use("Directory Manager");
 
         let host = new URL("http://127.0.0.1");
 
@@ -67,29 +75,57 @@ export default class Client extends Module
 
         let token: string | undefined;
 
-        if (!fse.existsSync(directories.config)) 
+        if (!fse.existsSync(this.paths.config)) 
         {
-            await fse.createFile(directories.config);
-            await fse.appendFile(directories.config, msgpack.pack({ hosts: []}, true));
+            verboseLogger.info(__("Hosts configuration not found, creating new file."));
+            await fse.createFile(this.paths.config);
+            await fse.appendFile(this.paths.config, zlib.brotliCompressSync(msgpack.pack({ hosts: []}, true)));
         }
 
-        this.saveFile = msgpack.unpack(await fse.readFile(directories.config));
+        this.saveFile = msgpack.unpack(zlib.brotliDecompressSync(Buffer.from(await fse.readFile(this.paths.config))));
 
-        const found = this.saveFile.hosts.find(hostname => hostname && hostname.name === host.hostname);
+        if (this.saveFile.hosts && this.saveFile.hosts.some(hostname => hostname && hostname.name === host.hostname)) 
+        {
+            const found = this.saveFile.hosts.find(hostname => hostname && hostname.name === host.hostname);
 
-        if (this.saveFile.hosts && found && found.token) 
-        
-            token = found.token;
-        
+            if (found && "token" in found) 
+            {
+                verboseLogger.info(__("Found token in specified host."));
+                token = found.token;
+            }
+            else if (parsedArguments.token && !token) 
+            {
+                try 
+                {
+                    verboseLogger.info(__("No token found, asking the user."));
+
+                    token = (await prompt({
+                        type: "password",
+                        name: "token",
+                        message: __("Enter token to connect")
+                    }) as { token: string }).token;
+                }
+                catch 
+                {
+                    logger.error("Interrupted the question!");
+
+                    throw new Error("KEYBOARD_INTERRUPT");
+                }
+
+                this.saveFile.hosts.push({ token, name: host.hostname });
+            }
+        }
         else if (parsedArguments.token && !token) 
         {
             try 
             {
+                verboseLogger.info(__("No token found, asking the user."));
+
                 token = (await prompt({
                     type: "password",
                     name: "token",
                     message: __("Enter token to connect")
-                }) as {token: string}).token;
+                }) as { token: string }).token;
             }
             catch 
             {
@@ -111,6 +147,8 @@ export default class Client extends Module
             } : { "access-control-allow-origin": "*" }
         });
 
+        verboseLogger.info(sprintf(__("Created new client %s. "), chalk.cyan("main")) + Timer.prettyTime());
+
         if (parsedArguments.verbose) 
         {
             Timer.time();
@@ -130,6 +168,8 @@ export default class Client extends Module
 
         if (!parsedArguments["ignore-test"]) 
         {
+            Timer.time();
+
             verboseLogger.info(__("Testing connection using /teapot."));
 
             try 
@@ -139,9 +179,9 @@ export default class Client extends Module
             catch (error) 
             {
                 if (!error.response.status) 
-                
+                {
                     throw new Error(error);
-                
+                }
 
                 switch (error.response.status) 
                 {
@@ -160,7 +200,7 @@ export default class Client extends Module
                 }
             }
 
-            verboseLogger.info(__("Connection and authentication tests finished."));
+            verboseLogger.info(__("Connection and authentication tests finished. ") + Timer.prettyTime());
 
             if (parsedArguments.verbose) 
             {
@@ -185,20 +225,22 @@ export default class Client extends Module
         this.enabled = true;
     }
 
-    async close(): Promise<void> 
+    close(): Promise<void> 
     {
         this.client = undefined;
         this.enabled = false;
 
-        await fse.writeFile(manager.use("Directory Manager").config, msgpack.pack(this.saveFile, true));
+        fs.writeFileSync(this.paths.config, zlib.brotliCompressSync(msgpack.pack(this.saveFile, true)));
+
+        return Promise.resolve();
     }
 
     use(): AxiosInstance 
     {
         if (!this.client) 
-        
-            throw new Error("This module not enabled!");
-        
+        {
+            throw new ModuleNotEnabledError();
+        }
 
         return this.client;
     }

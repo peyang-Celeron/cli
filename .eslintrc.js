@@ -53,7 +53,7 @@ module.exports = {
         }],
         "block-spacing": "error",
         "brace-style": [ "error", "allman", {
-            allowSingleLine: false
+            allowSingleLine: true
         }],
         "comma-dangle": [ "error", "never" ],
         "comma-spacing": [ "error", {
@@ -65,7 +65,7 @@ module.exports = {
             enforceForClassMembers: true
         }],
         "constructor-super": "error",
-        "curly": [ "error", "multi" ],
+        "curly": [ "error" ],
         "default-case-last": "error",
         "default-param-last": [ "error" ],
         "dot-notation": [ "error", {

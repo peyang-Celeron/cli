@@ -4,7 +4,10 @@ import { __ } from "i18n";
 
 import manager from "..";
 
+import ModuleNotEnabledError from "../errors/module-not-enabled";
+
 import Module from "./base";
+
 
 class VerboseAnotherLogger extends AnotherLogger 
 {
@@ -16,9 +19,9 @@ class VerboseAnotherLogger extends AnotherLogger
     info(message: string, tag?: string) 
     {
         if (!this.verbose)
-        
+        {
             return;
-        
+        }
 
         super.info(message, tag);
     }
@@ -26,9 +29,9 @@ class VerboseAnotherLogger extends AnotherLogger
     warning(message: string, tag?: string) 
     {
         if (!this.verbose) 
-        
+        {
             return;
-        
+        }
 
         super.warning(message, tag);
     }
@@ -36,9 +39,9 @@ class VerboseAnotherLogger extends AnotherLogger
     error(message: string, tag?: string) 
     {
         if (!this.verbose) 
-        
+        {
             return;
-        
+        }
 
         super.error(message, tag);
     }
@@ -85,7 +88,7 @@ export default class Logger extends Module
 
         this.enabled = true;
 
-        this.verboseLogger.info(__("Logger successfly created."));
+        this.verboseLogger.info(__("Logger successfully created."));
 
         return Promise.resolve();
     }
@@ -101,13 +104,13 @@ export default class Logger extends Module
     use(): [ AnotherLogger, VerboseAnotherLogger ] 
     {
         if (this.logger instanceof AnotherLogger && this.verboseLogger instanceof VerboseAnotherLogger) 
-        
+        {
             return [ this.logger, this.verboseLogger ];
-        
+        }
         else 
-        
-            throw new TypeError("This module not enabled!");
-        
+        {
+            throw new ModuleNotEnabledError();
+        }
     }
 }
 

@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 import ModuleNotFoundError from "../errors/module-not-found";
 
 import Module from "./base";
@@ -16,8 +14,7 @@ export default class ModuleManager
      *
      * @returns The instance of this class.
      */
-    constructor(private _modules: Module[]) 
-    {}
+    constructor(private _modules: Module[]) {}
 
     /**
      * Encapsulated _modules value.
@@ -37,13 +34,13 @@ export default class ModuleManager
     load(module: Module | Module[]): ModuleManager 
     {
         if (module instanceof Module) 
-        
+        {
             this._modules.push(module);
-        
+        }
         else 
-        
+        {
             this.modules.push(...module);
-        
+        }
 
         this.load(module);
 
@@ -62,25 +59,19 @@ export default class ModuleManager
         const index = typeof name === "string" ? this.modules.map(module => module.name).indexOf(name) : this.modules.indexOf(name);
 
         if (index == -1) 
-        
+        {
             throw new ModuleNotFoundError();
-        
+        }
 
         while (!this.modules[index].enabled) 
-        
+        {
             if (process.env.DEBUG === "1") 
-            
+            {
                 console.log("Enabling " + this.modules[index].name);
-            
-        
+            }
+        }
 
         return this.modules[index].use();
-    }
-
-    exit(code: number): void 
-    {
-        console.log(chalk`{greenBright Good bye.}`);
-        process.exit(code);
     }
 
     /**
@@ -113,15 +104,15 @@ export default class ModuleManager
         const index = typeof name === "string" ? this.modules.map(module => module.name).indexOf(name) : this.modules.indexOf(name);
 
         if (index == -1) 
-        
+        {
             throw new ModuleNotFoundError();
-        
+        }
 
         return await this.modules[index].init();
     }
 
     /**
-     * Clsoe specified module.
+     * Close specified module.
      *
      * @returns Promise class to use await / .then().
      */
@@ -130,9 +121,9 @@ export default class ModuleManager
         const index = typeof name === "string" ? this.modules.map(module => module.name).indexOf(name) : this.modules.indexOf(name);
 
         if (index == -1) 
-        
+        {
             throw new ModuleNotFoundError();
-        
+        }
 
         return await this.modules[index].close();
     }
