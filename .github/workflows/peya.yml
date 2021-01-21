@@ -32,12 +32,13 @@ jobs:
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
             git config --global user.name "peyang-Celeron@BOT"
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xours "stash@{0}" 
+        run: git merge --allow-unrelated-histories -Xthiers "stash@{0}"
+      - name: Clean
+        run: git status
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
           author_name: Eslint BOT
           message: Code Fix
-          force: true
           branch: peyang
           author_email: 42040068+peyang-Celeron@users.noreply.github.com
