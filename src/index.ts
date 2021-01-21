@@ -14,7 +14,7 @@ import Prompt from "./modules/prompt";
 
 import Timer from "./utils/timer";
 
-if (true) {
+if ("a".length == 1) {
     console.log("yahoah!!");
 }
 prettyError.start();
