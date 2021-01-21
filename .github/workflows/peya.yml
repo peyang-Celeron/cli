@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     if: "github.ref == 'refs/heads/develop'"
     steps:
-      - name: dbg
-        run: git branch
       - name: Checkout
         uses: actions/checkout@v2
+      - name: dbg
+        run: git branch
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
@@ -21,7 +21,6 @@ jobs:
           yarn eslint
       - name: fix
         run: npm run fix
-
       - name: cc
         run: git branch --set-upstream-to=origin/peyang peyang
       - name: commit
