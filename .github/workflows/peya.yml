@@ -21,8 +21,6 @@ jobs:
         run: |
           yarn
           yarn eslint
-      - name: fix
-        run: npm run fix
       - name: Stash
         run: git stash -ua
       - name: Change Branch
@@ -40,6 +38,16 @@ jobs:
         run: git merge --allow-unrelated-histories -Xtheirs "stash@{0}"
       - name: add
         run: git add .
+      - name: fix
+        run: npm run fix
+      - name: commit
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: "peyang-Celeron@bot"
+          author_email: "42040068+peyang-Celeron@users.noreply.github.com"
+          branch: develop
+          message: "Fix codestyle"
+          signoff: true
       - name: LogStatus
         run: git status
       - name: push
