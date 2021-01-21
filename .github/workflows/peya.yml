@@ -98,7 +98,7 @@ jobs:
         with:
           author_name: "peyang-Celeron@bot"
           author_email: "42040068+peyang-Celeron@users.noreply.github.com"
-          branch: develop
+          branch: peyang
           message: "Fix codestyle"
           signoff: true
       - name: LogStatus
