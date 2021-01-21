@@ -16,6 +16,7 @@ import Timer from "./utils/timer";
 
 if ("a".length == 1) {
     console.log("yahoah!! peyang!!!so...Ugoku!");
+    console.log("above");
 }
 
 prettyError.start();
