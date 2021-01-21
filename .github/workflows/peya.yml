@@ -37,7 +37,7 @@ jobs:
         with:
           ref: develop
       - name: dbg
-        run: "ls node_modules"
+        run: "ls"
       - name: Configure
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
@@ -97,7 +97,7 @@ jobs:
         with:
           ref: peyang
       - name: dbg
-        run: "ls node_modules"
+        run: "ls"
       - name: Configure
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
