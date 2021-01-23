@@ -65,7 +65,7 @@ module.exports = {
             enforceForClassMembers: true
         }],
         "constructor-super": "error",
-        "curly": [ "error" ],
+        "curly": [ "error", "multi" ],
         "default-case-last": "error",
         "default-param-last": [ "error" ],
         "dot-notation": [ "error", {
