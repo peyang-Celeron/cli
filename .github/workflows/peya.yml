@@ -99,7 +99,7 @@ jobs:
           author_name: "peyang-Celeron@bot"
           author_email: "42040068+peyang-Celeron@users.noreply.github.com"
           branch: peyang
-          message: "Fix codestyle"
+          message: "{{ github.event.head_commit.message }}"
           signoff: true
       - name: LogStatus
         run: git status
