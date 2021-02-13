@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Change Branch
       - name: Configure
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
