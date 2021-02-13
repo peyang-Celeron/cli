@@ -32,10 +32,6 @@ jobs:
             echo '[merge "ours"]' >> .git/config
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
-      - name: Apply
-        run: git merge --allow-unrelated-histories -Xours "origin/peyang"
-      - name: add
-        run: git add .
       - name: npm install, eslint
         run: |
           npm install -g pnpm
