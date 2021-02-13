@@ -33,7 +33,7 @@ jobs:
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xtheirs "origin/peyang"
+        run: git merge --allow-unrelated-histories -Xours "origin/peyang"
       - name: add
         run: git add .
       - name: npm install, eslint
@@ -84,7 +84,7 @@ jobs:
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
       - name: Apply
-        run: git merge --allow-unrelated-histories -Xtheirs "origin/develop"
+        run: git merge --allow-unrelated-histories -Xours "origin/develop"
       - name: add
         run: git add .
       - name: npm install, eslint
