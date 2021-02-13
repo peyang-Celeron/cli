@@ -45,10 +45,10 @@ jobs:
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
-          author_name: "peyang-Celeron@bot"
-          author_email: "42040068+peyang-Celeron@users.noreply.github.com"
+          author_name:  "${{ github.event.head_commit.comitter.name }}"
+          author_email: "${{ github.event.head_commit.comitter.email }}"
           branch: develop
-          message: "Fix codestyle"
+          message: "${{ github.event.head_commit.message }}"
           signoff: true
       - name: LogStatus
         run: git status
@@ -96,10 +96,10 @@ jobs:
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
-          author_name: "peyang-Celeron@bot"
-          author_email: "42040068+peyang-Celeron@users.noreply.github.com"
+          author_name:  "${{ github.event.head_commit.comitter.name }}"
+          author_email: "${{ github.event.head_commit.comitter.email }}"
           branch: peyang
-          message: "{{ github.event.head_commit.message }}"
+          message: "${{ github.event.head_commit.message }}"
           signoff: true
       - name: LogStatus
         run: git status
