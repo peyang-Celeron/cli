@@ -21,10 +21,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Change Branch
-        uses: actions/checkout@v2
-        with:
-          ref: develop
       - name: Configure
         run: |
             git config --global user.email "42040068+peyang-Celeron@users.noreply.github.com"
@@ -37,7 +33,7 @@ jobs:
           npm install -g pnpm
           pnpm i
       - name: fix
-        run: "npm run fix"
+        run: "npm run fix || true"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
@@ -66,10 +62,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Change Branch
-        uses: actions/checkout@v2
-        with:
-          ref: peyang
       - name: dbg
         run: "ls"
       - name: Configure
@@ -79,16 +71,12 @@ jobs:
             echo '[merge "ours"]' >> .git/config
             echo '  name = "Keep ours merge"' >> .git/config
             echo '  driver = true' >> .git/config
-      - name: Apply
-        run: git merge --allow-unrelated-histories -Xours "origin/develop"
-      - name: add
-        run: git add .
       - name: npm install, eslint
         run: |
           npm install -g pnpm
           pnpm i
       - name: fix
-        run: "npm run fix"
+        run: "npm run fix || true"
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:
